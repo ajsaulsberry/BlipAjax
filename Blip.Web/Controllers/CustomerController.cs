@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using Blip.Data;
-using Blip.Entities.Customer.ViewModels;
+using Blip.Entities.Customers.ViewModels;
 
 namespace Blip.Web.Controllers
 {

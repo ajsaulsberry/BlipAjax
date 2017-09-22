@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Blip.Entities.Customer.ViewModels
+namespace Blip.Entities.Customers.ViewModels
 {
     public class CustomerDisplayViewModel
     {

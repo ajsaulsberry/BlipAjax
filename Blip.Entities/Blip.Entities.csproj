@@ -100,9 +100,13 @@
     <Content Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Customer.ViewModels\CustomerDisplayViewModel.cs" />
-    <Compile Include="Customer.ViewModels\CustomerEditViewModel.cs" />
-    <Compile Include="Customer\Customer.cs" />
+    <Compile Include="Customers.ViewModels\CustomerDisplayViewModel.cs" />
+    <Compile Include="Customers.ViewModels\CustomerEditViewModel.cs" />
+    <Compile Include="Customers.ViewModels\EmailAddressViewModel.cs" />
+    <Compile Include="Customers.ViewModels\PostalAddressEditViewModel.cs" />
+    <Compile Include="Customers\Customer.cs" />
+    <Compile Include="Customers\EmailAddress.cs" />
+    <Compile Include="Customers\PostalAddress.cs" />
     <Compile Include="Geographies\Country.cs" />
     <Compile Include="Geographies\Region.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,6 +1,6 @@
 ﻿using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
-using Blip.Entities.Customer;
+using Blip.Entities.Customers;
 using Blip.Entities.Geographies;
 
 namespace Blip.Data

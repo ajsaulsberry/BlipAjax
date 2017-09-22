@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Blip.Entities.Geographies;
 
-namespace Blip.Entities.Customer
+namespace Blip.Entities.Customers
 {
     public class Customer
     {

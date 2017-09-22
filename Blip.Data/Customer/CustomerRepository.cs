@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using Blip.Entities.Customer;
-using Blip.Entities.Customer.ViewModels;
+using Blip.Entities.Customers;
+using Blip.Entities.Customers.ViewModels;
 
 namespace Blip.Data
 {
