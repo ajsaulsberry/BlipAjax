@@ -11,8 +11,10 @@ namespace Blip.Entities.Customers
     public class PostalAddress
     {
         [Key]
+        [Required]
         public int PostalAddressID { get; set; }
 
+        [Required]
         public Guid CustomerID { get; set; }
 
         [MaxLength(3)]

@@ -10,9 +10,11 @@ namespace Blip.Entities.Customers
     public class EmailAddress
     {
         [Key]
+        [Required]
         [MaxLength(128)]
         public string Email { get; set; }
 
+        [Required]
         public Guid CustomerID { get; set; }
 
         public virtual Customer Customer { get; set; }
