@@ -14,6 +14,8 @@ namespace Blip.Data
         public DbSet<Country> Countries { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Region> Regions { get; set; }
+        public DbSet<EmailAddress> EmailAddresses { get; set; }
+        public DbSet<PostalAddress> PostalAddresses { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
