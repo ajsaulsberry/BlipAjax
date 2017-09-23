@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Blip.Entities.Customers.ViewModels
 {
-    class EmailAddressViewModel
+    public class EmailAddressViewModel
     {
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
         [StringLength(38)]
-        public string Guid { get; set; }
+        public string CustomerID { get; set; }
     }
 }
