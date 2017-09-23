@@ -67,8 +67,10 @@ namespace Blip.Web.Controllers
         }
 
         // GET: Customer/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
+            var repo = new CustomersRepository();
+            var model = repo.GetCustomers(id)
             return View();
         }
 
