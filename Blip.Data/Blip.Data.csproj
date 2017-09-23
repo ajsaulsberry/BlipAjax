@@ -125,6 +125,10 @@
     <Compile Include="Migrations\201709222256518_AddAddressEntities.Designer.cs">
       <DependentUpon>201709222256518_AddAddressEntities.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709232229196_AddAddressTypes.cs" />
+    <Compile Include="Migrations\201709232229196_AddAddressTypes.Designer.cs">
+      <DependentUpon>201709232229196_AddAddressTypes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -143,6 +147,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709222256518_AddAddressEntities.resx">
       <DependentUpon>201709222256518_AddAddressEntities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709232229196_AddAddressTypes.resx">
+      <DependentUpon>201709232229196_AddAddressTypes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
