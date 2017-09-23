@@ -39,6 +39,35 @@ namespace Blip.Data
             }
         }
 
+        public CustomerEditViewModel GetCustomer(Guid customerid)
+        {
+            if (customerid != Guid.Empty)
+            {
+                using (var context = new ApplicationDbContext())
+                {
+                    var customer = context.Customers.AsNoTracking()
+                        .Where(x => x.CustomerID == customerid)
+                        .SingleOrDefault();
+                    if (customer != null)
+                    {
+                        var customerEditVm = new CustomerEditViewModel()
+                        {
+                            CustomerID = customer.CustomerID.ToString("D"),
+                            CustomerName = customer.CustomerName.Trim(),
+                            SelectedCountryIso3 = customer.CountryIso3,
+                            SelectedRegionCode = customer.RegionCode
+                        };
+                        var countriesRepo = new CountriesRepository();
+                        customerEditVm.Countries = countriesRepo.GetCountries();
+                        var regionsRepo = new RegionsRepository();
+                        customerEditVm.Regions = regionsRepo.GetRegions();
+
+                        return customerEditVm;
+                    }
+                }
+            }
+            return null;
+        }
 
         public CustomerEditViewModel CreateCustomer()
         {
