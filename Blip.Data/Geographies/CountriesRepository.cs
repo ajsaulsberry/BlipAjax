@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -26,6 +27,25 @@ namespace Blip.Data
                 countries.Insert(0, countrytip);
                 return new SelectList(countries, "Value", "Text");
             }
+        }
+
+        public string GetCountryNameEnglish(string iso3)
+        {
+            if(!String.IsNullOrWhiteSpace(iso3))
+            {
+                using (var context = new ApplicationDbContext())
+                {
+                    var countryName = context.Countries.AsNoTracking()
+                        .Where(x => x.Iso3 == iso3)
+                        .SingleOrDefault();
+                    if (countryName != null)
+                    {
+                        var countryNameEnglish = countryName.CountryNameEnglish.Trim();
+                        return countryNameEnglish;
+                    }
+                }
+            }
+            return null;
         }
     }
 }

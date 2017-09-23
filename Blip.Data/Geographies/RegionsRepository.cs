@@ -40,5 +40,25 @@ namespace Blip.Data
             }
             return null;
         }
+
+        public string GetRegionNameEnglish(string regioncode)
+        {
+            if (!String.IsNullOrWhiteSpace(regioncode))
+            {
+                using (var context = new ApplicationDbContext())
+                {
+                    var region = context.Regions.AsNoTracking()
+                        .Where(x => x.RegionCode == regioncode)
+                        .SingleOrDefault();
+                    if (region != null)
+                    {
+                        var regionNameEnglish = region.RegionNameEnglish.Trim();
+                        return regionNameEnglish;
+                    }
+                }
+            }
+            return null;
+        }
+
     }
 }

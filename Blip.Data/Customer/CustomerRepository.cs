@@ -80,5 +80,170 @@ namespace Blip.Data
             // Return false if customeredit == null or CustomerID is not a guid
             return false;
         }
+
+        public EmailAddressListViewModel GetEmailAddressList(Guid customerid)
+        {
+            if (customerid != Guid.Empty)
+            {
+                EmailAddressListViewModel emailAddressListViewModel = null;
+
+                using (var context = new ApplicationDbContext())
+                {
+                    var emailAddresses = context.EmailAddresses.AsNoTracking()
+                        .Where(x => x.CustomerID == customerid)
+                        .OrderBy(x => x.Email);
+
+                    if (emailAddresses != null)
+                    {
+                        foreach (var email in emailAddresses)
+                        {
+                            emailAddressListViewModel.EmailAddresses.Add(email.Email);
+                        }
+                        return emailAddressListViewModel;
+                    }
+                }
+            }
+            return null;
+        }
+
+        public EmailAddressViewModel GetEmailAddress(Guid customerid)
+        {
+            if (customerid != Guid.Empty)
+            {
+                using (var context = new ApplicationDbContext())
+                {
+                    var emailAddress = context.EmailAddresses.AsNoTracking()
+                        .Where(x => x.CustomerID == customerid)
+                        .SingleOrDefault();
+
+                    if (emailAddress != null && !String.IsNullOrWhiteSpace(emailAddress.Email))
+                    {
+                        var emailAddressVm = new EmailAddressViewModel()
+                        {
+                            CustomerID = customerid.ToString("D"),
+                            Email = emailAddress.Email
+                        };
+                        return emailAddressVm;
+                    }
+                }
+            }
+            return null;
+        }
+
+        public bool SaveEmailAddress(EmailAddressViewModel model)
+        {
+            if (model != null)
+            {
+                if (Guid.TryParse(model.CustomerID, out Guid newGuid) && !String.IsNullOrWhiteSpace(model.Email))
+                {
+                    using (var context = new ApplicationDbContext())
+                    {
+                        var emailAddress = new EmailAddress()
+                        {
+                            CustomerID = newGuid,
+                            Email = model.Email
+                        };
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public PostalAddressListViewModel GetPostalAddressList(Guid customerid)
+        {
+            if (customerid != Guid.Empty)
+            {
+                using (var context = new ApplicationDbContext())
+                {
+                    var postalAddresses = context.PostalAddresses.AsNoTracking()
+                        .Where(x => x.CustomerID == customerid)
+                        .OrderBy(x => x.PostalAddressID);
+
+                    if (postalAddresses != null)
+                    {
+                        var postalAddressListVm = new PostalAddressListViewModel();
+                        foreach (var address in postalAddresses)
+                        {
+                            var postalAddressVm = new PostalAddressViewModel()
+                            {
+                                CustomerID = address.CustomerID.ToString("D"),
+                                PostalAddressID = address.PostalAddressID,
+                                StreetAddress1 = address.StreetAddress1,
+                                StreetAddress2 = address.StreetAddress2,
+                                City = address.City
+
+                            };
+                            var regionsRepo = new RegionsRepository();
+                            postalAddressVm.RegionNameEnglish = regionsRepo.GetRegionNameEnglish(address.RegionCode);
+                            var countryRepo = new CountriesRepository();
+                            postalAddressVm.CountryNameEnglish = countryRepo.GetCountryNameEnglish(address.Iso3);
+                            postalAddressListVm.PostalAddresses.Add(postalAddressVm);
+                        }
+                        return postalAddressListVm;
+                    }
+                }
+            }
+            return null;
+        }
+
+        public PostalAddressViewModel GetPostalAddress(Guid customerid, int postaladdressid)
+        {
+            if (customerid != Guid.Empty)
+            {
+                using (var context = new ApplicationDbContext())
+                {
+                    var postalAddress = context.PostalAddresses.AsNoTracking()
+                        .Where(x => x.CustomerID == customerid && x.PostalAddressID == postaladdressid)
+                        .SingleOrDefault();
+
+                    if (postalAddress != null)
+                    {
+                        var postalAddressVm = new PostalAddressViewModel()
+                        {
+                            CustomerID = postalAddress.CustomerID.ToString("D"),
+                            StreetAddress1 = postalAddress.StreetAddress1.Trim(),
+                            StreetAddress2 = postalAddress.StreetAddress2.Trim(),
+                            City = postalAddress.City.Trim()
+                        };
+                        var countriesRepo = new CountriesRepository();
+                        postalAddressVm.CountryNameEnglish = countriesRepo.GetCountryNameEnglish(postalAddress.Iso3);
+                        var regionsRepo = new RegionsRepository();
+                        postalAddressVm.RegionNameEnglish = regionsRepo.GetRegionNameEnglish(postalAddress.RegionCode);
+
+                        return postalAddressVm;
+                    }
+                }
+            }
+            return null;
+        }
+
+        public bool SavePostalAddress(PostalAddressEditViewModel model)
+        {
+            if (model !=null)
+            {
+                using (var context = new ApplicationDbContext())
+                {
+                    var postalAddress = new PostalAddress()
+                    {
+                        StreetAddress1 = model.StreetAddress1.Trim(),
+                        StreetAddress2 = model.StreetAddress2.Trim(),
+                        City = model.City.Trim(),
+                        PostalCode = model.PostalCode,
+                        RegionCode = model.SelectedRegionCode,
+                        Iso3 = model.SelectedCountryIso3
+                    };
+                    Guid.TryParse(model.CustomerID, out Guid customerid);
+                    postalAddress.CustomerID = customerid;
+                    postalAddress.Region = context.Regions.Find(postalAddress.RegionCode);
+                    postalAddress.Country = context.Countries.Find(postalAddress.Iso3);
+
+                    context.PostalAddresses.Add(postalAddress);
+                    context.SaveChanges();
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

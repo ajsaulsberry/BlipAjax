@@ -102,8 +102,11 @@
   <ItemGroup>
     <Compile Include="Customers.ViewModels\CustomerDisplayViewModel.cs" />
     <Compile Include="Customers.ViewModels\CustomerEditViewModel.cs" />
+    <Compile Include="Customers.ViewModels\EmailAddressListViewModel.cs" />
     <Compile Include="Customers.ViewModels\EmailAddressViewModel.cs" />
     <Compile Include="Customers.ViewModels\PostalAddressEditViewModel.cs" />
+    <Compile Include="Customers.ViewModels\PostalAddressListViewModel.cs" />
+    <Compile Include="Customers.ViewModels\PostalAddressViewModel.cs" />
     <Compile Include="Customers\Customer.cs" />
     <Compile Include="Customers\EmailAddress.cs" />
     <Compile Include="Customers\PostalAddress.cs" />

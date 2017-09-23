@@ -4,11 +4,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.Mvc;
 
 namespace Blip.Entities.Customers.ViewModels
 {
-    public class PostalAddressEditViewModel
+    public class PostalAddressViewModel
     {
         public int PostalAddressID { get; set; }
 
@@ -30,14 +29,10 @@ namespace Blip.Entities.Customers.ViewModels
         [StringLength(10)]
         public string PostalCode { get; set; }
 
-        [Required]
-        [Display(Name = "Country")]
-        public string SelectedCountryIso3 { get; set; }
-        public IEnumerable<SelectListItem> Countries { get; set; }
-
-        [Required]
         [Display(Name = "State / Region")]
-        public string SelectedRegionCode { get; set; }
-        public IEnumerable<SelectListItem> Regions { get; set; }
+        public string RegionNameEnglish { get; set; }
+
+        [Display(Name = "Country")]
+        public string CountryNameEnglish { get; set; }
     }
 }
