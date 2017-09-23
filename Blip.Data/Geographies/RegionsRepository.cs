@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
-namespace Blip.Data
+namespace Blip.Data.Regions
 {
     public class RegionsRepository
     {

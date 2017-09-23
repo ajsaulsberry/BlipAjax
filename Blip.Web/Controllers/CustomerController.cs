@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
-using Blip.Data;
+using Blip.Data.Customers;
+using Blip.Data.Regions;
 using Blip.Entities.Customers.ViewModels;
 
 namespace Blip.Web.Controllers
@@ -70,8 +72,9 @@ namespace Blip.Web.Controllers
         public ActionResult Edit(string id)
         {
             var repo = new CustomersRepository();
-            var model = repo.GetCustomers(id)
-            return View();
+            Guid.TryParse(id, out Guid customerId);
+            var model = repo.GetCustomer(customerId);
+            return View(model);
         }
 
         // POST: Customer/Edit/5

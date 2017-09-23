@@ -1,20 +1,22 @@
-namespace Blip.Data.Migrations
+namespace Blip.Entities.Migrations
 {
     using System;
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using Blip.Data;
     using Blip.Entities.Geographies;
+    using Blip.Entities.Metadata;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Blip.Data.ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(Blip.Data.ApplicationDbContext context)
+        protected override void Seed(ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 
@@ -471,6 +473,20 @@ namespace Blip.Data.Migrations
                 }
             };
             regions.ForEach(s => context.Regions.AddOrUpdate(p => p.RegionCode, s));
+            context.SaveChanges();
+
+            var addressTypes = new List<AddressType>()
+            {
+                new AddressType
+                {
+                    AddressTypeID = "Email"
+                },
+                new AddressType
+                {
+                    AddressTypeID = "Postal"
+                }
+            };
+            addressTypes.ForEach(x => context.AddressTypes.AddOrUpdate(p => p.AddressTypeID, x));
             context.SaveChanges();
         }
     }

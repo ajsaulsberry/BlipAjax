@@ -116,6 +116,7 @@
     <Compile Include="Customer\CustomerRepository.cs" />
     <Compile Include="Geographies\CountriesRepository.cs" />
     <Compile Include="Geographies\RegionsRepository.cs" />
+    <Compile Include="Metadata\MetadataRepository.cs" />
     <Compile Include="Migrations\201708222251192_InitialMigration.cs" />
     <Compile Include="Migrations\201708222251192_InitialMigration.Designer.cs">
       <DependentUpon>201708222251192_InitialMigration.cs</DependentUpon>

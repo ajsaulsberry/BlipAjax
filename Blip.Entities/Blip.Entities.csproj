@@ -112,6 +112,7 @@
     <Compile Include="Customers\PostalAddress.cs" />
     <Compile Include="Geographies\Country.cs" />
     <Compile Include="Geographies\Region.cs" />
+    <Compile Include="Metadata\AddressTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Blip.Data;
 
-namespace Blip.Data
+namespace Blip.Data.Countries
 {
     public class CountriesRepository
     {

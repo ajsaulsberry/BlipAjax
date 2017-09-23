@@ -2,6 +2,7 @@
 using System.Data.Entity.ModelConfiguration.Conventions;
 using Blip.Entities.Customers;
 using Blip.Entities.Geographies;
+using Blip.Entities.Metadata;
 
 namespace Blip.Data
 {
@@ -16,6 +17,7 @@ namespace Blip.Data
         public DbSet<Region> Regions { get; set; }
         public DbSet<EmailAddress> EmailAddresses { get; set; }
         public DbSet<PostalAddress> PostalAddresses { get; set; }
+        public DbSet<AddressType> AddressTypes { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

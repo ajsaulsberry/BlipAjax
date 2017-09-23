@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using Blip.Data.Countries;
+using Blip.Data.Regions;
 using Blip.Entities.Customers;
 using Blip.Entities.Customers.ViewModels;
 
-namespace Blip.Data
+namespace Blip.Data.Customers
 {
     public class CustomersRepository
     {
