@@ -9,7 +9,7 @@ namespace Blip.Entities.Customers.ViewModels
         [StringLength(38)]
         public string CustomerID { get; set; } // Carries the value in POST action.
 
-        public string SelectedAdressType { get; set; }
+        public string SelectedAddressType { get; set; }
         public IEnumerable<SelectListItem> AddressTypes { get; set; }
     }
 }

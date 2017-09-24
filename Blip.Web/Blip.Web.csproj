@@ -167,6 +167,7 @@
     <Content Include="Views\Customer\AddressTypePartial.cshtml" />
     <Content Include="Views\Customer\CreateEmailAddressPartial.cshtml" />
     <Content Include="Views\Customer\CreatePostalAddressPartial.cshtml" />
+    <Content Include="Views\Customer\EditCustomerPartial.cshtml" />
     <None Include="Views\Customer\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>

@@ -96,14 +96,23 @@ namespace Blip.Web.Controllers
         }
 
         [ChildActionOnly]
-        public ActionResult AddressTypePartial()
+        public ActionResult AddressTypePartial(string customerid)
         {
-            var repo = new MetadataRepository();
-            var model = new AddressTypeViewModel()
+            if (!String.IsNullOrWhiteSpace(customerid))
             {
-                AddressTypes = repo.GetAddressTypes()
-            };
-            return PartialView("AddressTypePartial", model);
+                Guid.TryParse(customerid, out Guid customerId);
+                if (customerId != Guid.Empty)
+                {
+                    var repo = new MetadataRepository();
+                    var model = new AddressTypeViewModel()
+                    {
+                        CustomerID = customerid,
+                        AddressTypes = repo.GetAddressTypes()
+                    };
+                    return PartialView("AddressTypePartial", model);
+                }
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
 
         [HttpPost]
@@ -115,7 +124,7 @@ namespace Blip.Web.Controllers
                 Guid.TryParse(model.CustomerID, out Guid customerId);
                 if (customerId != Guid.Empty)
                 {
-                    switch (model.SelectedAdressType)
+                    switch (model.SelectedAddressType)
                     {
                         case "Email":
                             var emailAddressModel = new EmailAddressViewModel()
