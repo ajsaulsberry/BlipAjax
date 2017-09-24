@@ -10,7 +10,7 @@ namespace Blip.Data.Metadata
 {
     public class MetadataRepository
     {
-        IEnumerable<SelectListItem> GetAddressTypes()
+        public IEnumerable<SelectListItem> GetAddressTypes()
         {
             using (var context = new ApplicationDbContext())
             {

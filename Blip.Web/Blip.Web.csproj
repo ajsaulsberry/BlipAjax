@@ -164,6 +164,9 @@
     <Content Include="Scripts\jquery-3.2.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.2.1.min.map" />
     <Content Include="Views\Customer\Edit.cshtml" />
+    <Content Include="Views\Customer\AddressTypePartial.cshtml" />
+    <Content Include="Views\Customer\CreateEmailAddressPartial.cshtml" />
+    <Content Include="Views\Customer\CreatePostalAddressPartial.cshtml" />
     <None Include="Views\Customer\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>

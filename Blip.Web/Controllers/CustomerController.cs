@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Web.Mvc;
 using Blip.Data.Customers;
+using Blip.Data.Metadata;
 using Blip.Data.Regions;
 using Blip.Entities.Customers.ViewModels;
 
@@ -91,6 +93,85 @@ namespace Blip.Web.Controllers
             {
                 return View();
             }
+        }
+
+        [ChildActionOnly]
+        public ActionResult AddressTypePartial()
+        {
+            var repo = new MetadataRepository();
+            var model = new AddressTypeViewModel()
+            {
+                AddressTypes = repo.GetAddressTypes()
+            };
+            return PartialView("AddressTypePartial", model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddressTypePartial(AddressTypeViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Guid.TryParse(model.CustomerID, out Guid customerId);
+                if (customerId != Guid.Empty)
+                {
+                    switch (model.SelectedAdressType)
+                    {
+                        case "Email":
+                            var emailAddressModel = new EmailAddressViewModel()
+                            {
+                                CustomerID = model.CustomerID
+                            };
+                            return PartialView("CreateEmailAddressPartial", emailAddressModel);
+                        case "Postal":
+                            var postaAddressModel = new PostalAddressEditViewModel()
+                            {
+                                CustomerID = model.CustomerID
+                            };
+                            return PartialView("CreatePostalAddressPartial", postaAddressModel);
+                        default:
+                            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    }
+                }
+            }
+            return View(model);
+        }
+
+        // GET: CreateEmailAddressPartial
+        //[ChildActionOnly]
+        //public ActionResult CreateEmailAddressPartial()
+        //{
+        //    return PartialView("CreateEmailAddressPartial");
+        //}
+
+        // POST: CreateEmailAddressPartial
+        public ActionResult CreateEmailAddressPartial(EmailAddressViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var repo = new CustomersRepository();
+                bool saved = repo.SaveEmailAddress(model);
+                if (saved)
+                {
+                    // refresh email address list
+                    return PartialView("CreateEmailAddressPartial", model);
+                }
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        }
+
+        public ActionResult CreatePostalAddressPartial(PostalAddressEditViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var repo = new CustomersRepository();
+                bool saved = repo.SavePostalAddress(model);
+                if (saved)
+                {
+                    return PartialView("CreatePostalAddressPartial", model);
+                }
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
 
         // GET: Customer/Delete/5

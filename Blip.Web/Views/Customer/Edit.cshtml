@@ -54,6 +54,11 @@
         </div>
     </div>
 }
+<div id="SelectAddressTypePartial">
+    @Html.Action("AddressTypePartial", new { CustomerID = Model.CustomerID })
+</div>
+
+<div id="CreateAddress"></div>
 
 <div>
     @Html.ActionLink("Back to List", "Index")

@@ -9,10 +9,10 @@ namespace Blip.Entities.Customers.ViewModels
 {
     public class EmailAddressViewModel
     {
-        [DataType(DataType.EmailAddress)]
-        public string Email { get; set; }
-
         [StringLength(38)]
         public string CustomerID { get; set; }
+
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
     }
 }

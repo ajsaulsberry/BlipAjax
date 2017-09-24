@@ -100,6 +100,7 @@
     <Content Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Customers.ViewModels\AddressTypeViewModel.cs" />
     <Compile Include="Customers.ViewModels\CustomerDisplayViewModel.cs" />
     <Compile Include="Customers.ViewModels\CustomerEditViewModel.cs" />
     <Compile Include="Customers.ViewModels\EmailAddressListViewModel.cs" />
