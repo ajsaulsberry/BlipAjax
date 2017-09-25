@@ -62,7 +62,7 @@ namespace Blip.Data.Customers
                         var countriesRepo = new CountriesRepository();
                         customerEditVm.Countries = countriesRepo.GetCountries();
                         var regionsRepo = new RegionsRepository();
-                        customerEditVm.Regions = regionsRepo.GetRegions();
+                        customerEditVm.Regions = regionsRepo.GetRegions(customer.CountryIso3);
 
                         return customerEditVm;
                     }

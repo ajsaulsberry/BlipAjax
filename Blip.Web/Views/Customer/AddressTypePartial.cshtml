@@ -6,7 +6,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Choose an address type</h4>
+        <h4>Add an address</h4>
         <hr />
         @Html.HiddenFor(model => model.CustomerID)
         <div class="form-group">
@@ -25,6 +25,6 @@
     </div>
 }
 
-@section Scripts {
+@*@section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-}
+}*@

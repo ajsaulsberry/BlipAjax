@@ -73,40 +73,47 @@ namespace Blip.Web.Controllers
         // GET: Customer/Edit/5
         public ActionResult Edit(string id)
         {
-            var repo = new CustomersRepository();
-            Guid.TryParse(id, out Guid customerId);
-            var model = repo.GetCustomer(customerId);
-            return View(model);
-        }
-
-        // POST: Customer/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
+            if (!String.IsNullOrWhiteSpace(id))
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                bool isGuid = Guid.TryParse(id, out Guid customerId);
+                if (isGuid && customerId != Guid.Empty)
+                {
+                    return View();
+                }
             }
-            catch
-            {
-                return View();
-            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
 
         [ChildActionOnly]
-        public ActionResult AddressTypePartial(string customerid)
+        public ActionResult EditCustomerPartial(string id)
         {
-            if (!String.IsNullOrWhiteSpace(customerid))
+            if (!String.IsNullOrWhiteSpace(id))
             {
-                Guid.TryParse(customerid, out Guid customerId);
-                if (customerId != Guid.Empty)
+                bool isGuid = Guid.TryParse(id, out Guid customerId);
+                if (isGuid && customerId != Guid.Empty)
+                {
+                    var repo = new CustomersRepository();
+                    var model = repo.GetCustomer(customerId);
+                    return View(model);
+                }
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        }
+
+        // TODO: Post action for EditCustomerPartial
+
+        [ChildActionOnly]
+        public ActionResult AddressTypePartial(string id)
+        {
+            if (!String.IsNullOrWhiteSpace(id))
+            {
+                bool isGuid = Guid.TryParse(id, out Guid customerId);
+                if (isGuid && customerId != Guid.Empty)
                 {
                     var repo = new MetadataRepository();
                     var model = new AddressTypeViewModel()
                     {
-                        CustomerID = customerid,
+                        CustomerID = id,
                         AddressTypes = repo.GetAddressTypes()
                     };
                     return PartialView("AddressTypePartial", model);
@@ -119,41 +126,41 @@ namespace Blip.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AddressTypePartial(AddressTypeViewModel model)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && !String.IsNullOrWhiteSpace(model.CustomerID))
             {
-                Guid.TryParse(model.CustomerID, out Guid customerId);
-                if (customerId != Guid.Empty)
+                switch (model.SelectedAddressType)
                 {
-                    switch (model.SelectedAddressType)
-                    {
-                        case "Email":
-                            var emailAddressModel = new EmailAddressViewModel()
-                            {
-                                CustomerID = model.CustomerID
-                            };
-                            return PartialView("CreateEmailAddressPartial", emailAddressModel);
-                        case "Postal":
-                            var postaAddressModel = new PostalAddressEditViewModel()
-                            {
-                                CustomerID = model.CustomerID
-                            };
-                            return PartialView("CreatePostalAddressPartial", postaAddressModel);
-                        default:
-                            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                    }
+                    case "Email":
+                        var emailAddressModel = new EmailAddressViewModel()
+                        {
+                            CustomerID = model.CustomerID
+                        };
+                        return PartialView("CreateEmailAddressPartial", emailAddressModel);
+                    case "Postal":
+                        var postalAddressModel = new PostalAddressEditViewModel()
+                        {
+                            CustomerID = model.CustomerID
+                        };
+                        return PartialView("CreatePostalAddressPartial", postalAddressModel);
+                    default:
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
             }
-            return View(model);
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
 
-        // GET: CreateEmailAddressPartial
         //[ChildActionOnly]
-        //public ActionResult CreateEmailAddressPartial()
+        //public ActionResult CreateEmailAddressPartial(Guid customerid)
         //{
-        //    return PartialView("CreateEmailAddressPartial");
+        //    var emailAddressModel = new EmailAddressViewModel()
+        //    {
+        //        CustomerID = customerid.ToString()
+        //    };
+        //    return PartialView("CreateEmailAddressPartial", emailAddressModel);
         //}
 
-        // POST: CreateEmailAddressPartial
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult CreateEmailAddressPartial(EmailAddressViewModel model)
         {
             if (ModelState.IsValid)
@@ -169,6 +176,18 @@ namespace Blip.Web.Controllers
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
 
+        [ChildActionOnly]
+        public ActionResult CreatePostalAddressPartial(string customerid)
+        {
+            var postalAddressModel = new PostalAddressEditViewModel()
+            {
+                CustomerID = customerid
+            };
+            return PartialView("CreatePostalAddressPartial", postalAddressModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult CreatePostalAddressPartial(PostalAddressEditViewModel model)
         {
             if (ModelState.IsValid)

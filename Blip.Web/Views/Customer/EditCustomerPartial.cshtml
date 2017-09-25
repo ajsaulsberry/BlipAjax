@@ -1,19 +1,18 @@
 ﻿@model Blip.Entities.Customers.ViewModels.CustomerEditViewModel
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("EditCustomerPartial", "Customer", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>CustomerEditViewModel</h4>
+        <h4>Edit customer information</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.CustomerID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.CustomerID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CustomerID, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.CustomerID, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
             </div>
         </div>
 
@@ -28,7 +27,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.SelectedCountryIso3, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.SelectedCountryIso3, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(model => model.SelectedCountryIso3, new SelectList(Model.Countries, "Value", "Text"), htmlAttributes: new { @class = "form-control", @id="Country" })
                 @Html.ValidationMessageFor(model => model.SelectedCountryIso3, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -36,23 +35,62 @@
         <div class="form-group">
             @Html.LabelFor(model => model.SelectedRegionCode, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.SelectedRegionCode, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(model => model.SelectedRegionCode,new SelectList(Model.Regions, "Value", "Text"), htmlAttributes: new { @class = "form-control", @id="Region" })
                 @Html.ValidationMessageFor(model => model.SelectedRegionCode, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var selectedCountry = $("#Country").val();
+            var selectedRegion = $("#Region").val();
+            var regionsSelect = $('#Region');
+            if (selectedCountry != null && selectedCountry != '') {
+                $.getJSON('@Url.Action("GetRegions")', { iso3: selectedCountry }, function (regions) {
+                    if (regions != null && !jQuery.isEmptyObject(regions)) {
+                        $.each(regions, function (index, region) {
+                            regionsSelect.append($('<option/>', {
+                                value: region.Value,
+                                text: region.Text
+                            }));
+                        });
+                    };
+                });
+            }
+            if (selectedRegion != null && selectedRegion != '') {
+                regionsSelect.val = selectedRegion;
+            };
+        });
+
+        $('#Country').change(function () {
+            var selectedCountry = $("#Country").val();
+            var regionsSelect = $('#Region');
+            regionsSelect.empty();
+            if (selectedCountry != null && selectedCountry != '') {
+                $.getJSON('@Url.Action("GetRegions")', { iso3: selectedCountry }, function (regions) {
+                    if (regions != null && !jQuery.isEmptyObject(regions)) {
+                        regionsSelect.append($('<option/>', {
+                            value: null,
+                            text: ""
+                        }));
+                        $.each(regions, function (index, region) {
+                            regionsSelect.append($('<option/>', {
+                                value: region.Value,
+                                text: region.Text
+                            }));
+                        });
+                    };
+                });
+            }
+        });
+    </script>
 }
