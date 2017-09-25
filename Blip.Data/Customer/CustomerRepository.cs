@@ -249,7 +249,7 @@ namespace Blip.Data.Customers
             return null;
         }
 
-        public bool SavePostalAddress(PostalAddressEditViewModel model)
+        public PostalAddressEditViewModel SavePostalAddress(PostalAddressEditViewModel model)
         {
             if (model !=null)
             {
@@ -271,10 +271,15 @@ namespace Blip.Data.Customers
 
                     context.PostalAddresses.Add(postalAddress);
                     context.SaveChanges();
-                    return true;
+
+                    var countriesRepo = new CountriesRepository();
+                    model.Countries = countriesRepo.GetCountries();
+                    var regionsRepo = new RegionsRepository();
+                    model.Regions = regionsRepo.GetRegions(model.SelectedCountryIso3);
+                    return model;
                 }
             }
-            return false;
+            return null;
         }
     }
 }

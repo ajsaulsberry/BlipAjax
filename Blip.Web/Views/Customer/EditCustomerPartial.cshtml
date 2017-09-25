@@ -1,5 +1,9 @@
 ﻿@model Blip.Entities.Customers.ViewModels.CustomerEditViewModel
 
+@{ 
+    Layout = null;
+}
+
 
 @using (Html.BeginForm("EditCustomerPartial", "Customer", FormMethod.Post))
 {
@@ -35,7 +39,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.SelectedRegionCode, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.SelectedRegionCode,new SelectList(Model.Regions, "Value", "Text"), htmlAttributes: new { @class = "form-control", @id="Region" })
+                @Html.DropDownListFor(model => model.SelectedRegionCode, new SelectList(Model.Regions, "Value", "Text"), htmlAttributes: new { @class = "form-control", @id="Region" })
                 @Html.ValidationMessageFor(model => model.SelectedRegionCode, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -54,18 +58,7 @@
             var selectedCountry = $("#Country").val();
             var selectedRegion = $("#Region").val();
             var regionsSelect = $('#Region');
-            if (selectedCountry != null && selectedCountry != '') {
-                $.getJSON('@Url.Action("GetRegions")', { iso3: selectedCountry }, function (regions) {
-                    if (regions != null && !jQuery.isEmptyObject(regions)) {
-                        $.each(regions, function (index, region) {
-                            regionsSelect.append($('<option/>', {
-                                value: region.Value,
-                                text: region.Text
-                            }));
-                        });
-                    };
-                });
-            }
+            AddRegions(selectedCountry, regionsSelect);
             if (selectedRegion != null && selectedRegion != '') {
                 regionsSelect.val = selectedRegion;
             };
@@ -76,21 +69,25 @@
             var regionsSelect = $('#Region');
             regionsSelect.empty();
             if (selectedCountry != null && selectedCountry != '') {
-                $.getJSON('@Url.Action("GetRegions")', { iso3: selectedCountry }, function (regions) {
-                    if (regions != null && !jQuery.isEmptyObject(regions)) {
-                        regionsSelect.append($('<option/>', {
-                            value: null,
-                            text: ""
-                        }));
-                        $.each(regions, function (index, region) {
-                            regionsSelect.append($('<option/>', {
-                                value: region.Value,
-                                text: region.Text
-                            }));
-                        });
-                    };
-                });
+                AddRegions(selectedCountry, regionsSelect, regionsSelect);
             }
         });
+
+        function AddRegions(selectedCountry, regionsSelect) {
+            $.getJSON('@Url.Action("GetRegions")', { iso3: selectedCountry }, function (regions) {
+                if (regions != null && !jQuery.isEmptyObject(regions)) {
+                    regionsSelect.append($('<option/>', {
+                        value: null,
+                        text: ""
+                    }));
+                    $.each(regions, function (index, region) {
+                        regionsSelect.append($('<option/>', {
+                            value: region.Value,
+                            text: region.Text
+                        }));
+                    });
+                };
+            });
+        }
     </script>
 }

@@ -1,6 +1,5 @@
 ﻿@model Blip.Entities.Customers.ViewModels.AddressTypeViewModel
 
-
 @using (Html.BeginForm("AddressTypePartial", "Customer", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
@@ -24,7 +23,3 @@
         </div>
     </div>
 }
-
-@*@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}*@

@@ -100,7 +100,26 @@ namespace Blip.Web.Controllers
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
 
-        // TODO: Post action for EditCustomerPartial
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditCustomerPartial(CustomerEditViewModel model)
+        {
+            if(ModelState.IsValid)
+            {
+                var repo = new CustomersRepository();
+                bool saved = repo.SaveCustomer(model);
+                if (saved)
+                {
+                    bool isGuid = Guid.TryParse(model.CustomerID, out Guid customerId);
+                    if (isGuid)
+                    {
+                        var modelUpdate = repo.GetCustomer(customerId);
+                        return PartialView(modelUpdate);
+                    }
+                }
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        }
 
         [ChildActionOnly]
         public ActionResult AddressTypePartial(string id)
@@ -149,15 +168,15 @@ namespace Blip.Web.Controllers
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
 
-        //[ChildActionOnly]
-        //public ActionResult CreateEmailAddressPartial(Guid customerid)
-        //{
-        //    var emailAddressModel = new EmailAddressViewModel()
-        //    {
-        //        CustomerID = customerid.ToString()
-        //    };
-        //    return PartialView("CreateEmailAddressPartial", emailAddressModel);
-        //}
+        [ChildActionOnly]
+        public ActionResult CreateEmailAddressPartial(Guid customerid)
+        {
+            var emailAddressModel = new EmailAddressViewModel()
+            {
+                CustomerID = customerid.ToString()
+            };
+            return PartialView("CreateEmailAddressPartial", emailAddressModel);
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -193,10 +212,10 @@ namespace Blip.Web.Controllers
             if (ModelState.IsValid)
             {
                 var repo = new CustomersRepository();
-                bool saved = repo.SavePostalAddress(model);
-                if (saved)
+                var updatedModel = repo.SavePostalAddress(model);
+                if (updatedModel != null)
                 {
-                    return PartialView("CreatePostalAddressPartial", model);
+                    return PartialView("CreatePostalAddressPartial", updatedModel);
                 }
             }
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
