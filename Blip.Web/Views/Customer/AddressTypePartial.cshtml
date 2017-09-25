@@ -1,6 +1,6 @@
 ﻿@model Blip.Entities.Customers.ViewModels.AddressTypeViewModel
 
-@using (Html.BeginForm("AddressTypePartial", "Customer", FormMethod.Post))
+@using (Ajax.BeginForm("AddressTypePartial", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "CreateAddress", InsertionMode = InsertionMode.Replace }))
 {
     @Html.AntiForgeryToken()
     
