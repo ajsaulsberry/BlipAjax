@@ -4,7 +4,72 @@
 }
 
 @section Scripts {
-    <script src="~/scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+<script type="text/javascript">
+    function AddRegions(selectedCountry, regionsSelect) {
+        $.getJSON('@Url.Action("GetRegions")', { iso3: selectedCountry }, function (regions) {
+            if (regions != null && !jQuery.isEmptyObject(regions)) {
+                regionsSelect.append($('<option/>', {
+                    value: null,
+                    text: ""
+                }));
+                $.each(regions, function (index, region) {
+                    regionsSelect.append($('<option/>', {
+                        value: region.Value,
+                        text: region.Text
+                    }));
+                });
+            };
+        });
+    }
+
+    $(document).ready(function () {
+        var selectedCountry = $("#Country").val();
+        var selectedRegion = $("#Region").val();
+        var regionsSelect = $('#Region');
+        $.getJSON('@Url.Action("GetRegions")', { iso3: selectedCountry }, function (regions) {
+            if (regions != null && !jQuery.isEmptyObject(regions)) {
+                regionsSelect.append($('<option/>', {
+                    value: null,
+                    text: ""
+                }));
+                $.each(regions, function (index, region) {
+                    regionsSelect.append($('<option/>', {
+                        value: region.Value,
+                        text: region.Text
+                    }));
+                });
+            };
+        });
+        if (selectedRegion != null && selectedRegion != '') {
+            regionsSelect.val = selectedRegion;
+        };
+    });
+
+    $("#Country").change(function () {
+        var selectedCountry = $("#Country").val();
+        var regionsSelect = $('#Region');
+        regionsSelect.empty();
+        if (selectedCountry != null && selectedCountry != '') {
+        $.getJSON('@Url.Action("GetRegions")', { iso3: selectedCountry }, function (regions) {
+            if (regions != null && !jQuery.isEmptyObject(regions)) {
+                regionsSelect.append($('<option/>', {
+                    value: null,
+                    text: ""
+                }));
+                $.each(regions, function (index, region) {
+                    regionsSelect.append($('<option/>', {
+                        value: region.Value,
+                        text: region.Text
+                    }));
+                });
+            };
+        });
+        }
+    });
+</script>
+
 }
 
 @{
