@@ -5,8 +5,9 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Add an address</h4>
         <hr />
+        <h4>Select an address type to add</h4>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.CustomerID)
         <div class="form-group">
             @Html.LabelFor(model => model.SelectedAddressType, htmlAttributes: new { @class = "control-label col-md-2", id="AddressTypeLabel" })

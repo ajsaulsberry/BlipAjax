@@ -1,12 +1,45 @@
 ﻿@*Models are in partial views.*@
 
 @section header {
+
 }
 
-@section Scripts {
-    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+@{
+    ViewBag.Title = "Edit Customer Information";
+}
 
-<script type="text/javascript">
+<div class="row">
+    <div class="col-md-12">
+        <h2>Edit Customer Information</h2>
+    </div>
+</div>
+
+<div id="EditCustomerPartial">
+    @Html.Action("EditCustomerPartial", new { id = Url.RequestContext.RouteData.Values["id"] })
+</div>
+
+<div id="SelectAddressTypePartial">
+    @Html.Action("AddressTypePartial", new { id = Url.RequestContext.RouteData.Values["id"] })
+</div>
+
+<div id="CreateAddress"></div>
+
+<div class="row">
+    <div class="form-group">
+        <div class="col-md-12">
+            <hr />
+            <div>
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryunobtrusive") @*For unobtrusive-ajax*@
+    @Scripts.Render("~/bundles/jqueryval") @*For validate and validate-unobtrusive*@
+
+    <script type="text/javascript">
     $(document).ready(function () {
         var selectedCountry = $("#Country").val();
         var selectedRegion = $("#Region").val();
@@ -42,39 +75,5 @@
             };
         });
     }
-</script>
-
+    </script>
 }
-
-@{
-    ViewBag.Title = "Edit Customer Information";
-}
-
-<div class="row">
-    <div class="col-md-12">
-        <h2>Edit Customer Information</h2>
-    </div>
-</div>
-
-<div id="EditCustomerPartial">
-    @Html.Action("EditCustomerPartial", new { id = Url.RequestContext.RouteData.Values["id"] })
-</div>
-
-<div id="SelectAddressTypePartial">
-    @Html.Action("AddressTypePartial", new { id = Url.RequestContext.RouteData.Values["id"] })
-</div>
-
-<div id="CreateAddress"></div>
-
-<div class="row">
-    <div class="form-group">
-        <div class="col-md-12">
-            <hr />
-            <div>
-                @Html.ActionLink("Back to List", "Index")
-            </div>
-        </div>
-    </div>
-</div>
-
-

@@ -55,7 +55,7 @@
 </div>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryval") @*For validate and validate-unobtrusive*@
     <script type="text/javascript">
             $('#Country').change(function () {
                 var selectedCountry = $("#Country").val();

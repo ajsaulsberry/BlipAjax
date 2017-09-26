@@ -1,39 +1,23 @@
 ﻿@model Blip.Entities.Customers.ViewModels.PostalAddressEditViewModel
 
-@Scripts.Render("~/bundles/jqueryval")
 <script type="text/javascript">
-            $('#AddressCountry').change(function () {
-                var selectedCountry = $("#AddressCountry").val();
-                var regionsSelect = $('#AddressRegion');
-                regionsSelect.empty();
-                if (selectedCountry != null && selectedCountry != '') {
-                    $.getJSON('@Url.Action("GetRegions")', { iso3: selectedCountry }, function (regions) {
-                        if (regions != null && !jQuery.isEmptyObject(regions))
-                        {
-                            regionsSelect.append($('<option/>', {
-                                value: null,
-                                text: ""
-                            }));
-                            $.each(regions, function (index, region) {
-                                regionsSelect.append($('<option/>', {
-                                    value: region.Value,
-                                    text: region.Text
-                                }));
-                            });
-                        };
-                    });
-                }
-            });
+    $("#AddressCountry").change(function () {
+        var selectedCountry = $("#AddressCountry").val();
+        var regionsSelect = $("#AddressRegion");
+        regionsSelect.empty();
+        if (selectedCountry != null && selectedCountry != '') {
+            AddRegions(selectedCountry, regionsSelect);
+        }
+    });
 </script>
-
 
 @using (Html.BeginForm("CreatePostalAddressPartial", "Customer", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Add a new postal address</h4>
         <hr />
+        <h4>Add a new postal address</h4>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.CustomerID)
         <div class="form-group">
@@ -92,12 +76,8 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </div>
     </div>
-}
-
-@section Scripts {
-
 }

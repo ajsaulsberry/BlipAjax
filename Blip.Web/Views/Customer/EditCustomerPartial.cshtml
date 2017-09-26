@@ -4,82 +4,13 @@
     Layout = null;
 }
 
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/jqueryval")
-
-@*<script type="text/javascript">
-    function AddRegions(selectedCountry, regionsSelect) {
-        $.getJSON('@Url.Action("GetRegions")', { iso3: selectedCountry }, function (regions) {
-                if (regions != null && !jQuery.isEmptyObject(regions)) {
-                    regionsSelect.append($('<option/>', {
-                        value: null,
-                        text: ""
-                    }));
-                    $.each(regions, function (index, region) {
-                        regionsSelect.append($('<option/>', {
-                            value: region.Value,
-                            text: region.Text
-                        }));
-                    });
-                };
-            });
-        }
-
-        $(document).ready(function () {
-            var selectedCountry = $("#Country").val();
-            var selectedRegion = $("#Region").val();
-            var regionsSelect = $('#Region');
-            $.getJSON('@Url.Action("GetRegions")', { iso3: selectedCountry }, function (regions) {
-                if (regions != null && !jQuery.isEmptyObject(regions)) {
-                    regionsSelect.append($('<option/>', {
-                        value: null,
-                        text: ""
-                    }));
-                    $.each(regions, function (index, region) {
-                        regionsSelect.append($('<option/>', {
-                            value: region.Value,
-                            text: region.Text
-                        }));
-                    });
-                };
-            });
-            if (selectedRegion != null && selectedRegion != '') {
-                regionsSelect.val = selectedRegion;
-            };
-        });
-
-        $("#Country").change(function () {
-            var selectedCountry = $("#Country").val();
-            var regionsSelect = $('#Region');
-            regionsSelect.empty();
-            if (selectedCountry != null && selectedCountry != '') {
-            $.getJSON('@Url.Action("GetRegions")', { iso3: selectedCountry }, function (regions) {
-                if (regions != null && !jQuery.isEmptyObject(regions)) {
-                    regionsSelect.append($('<option/>', {
-                        value: null,
-                        text: ""
-                    }));
-                    $.each(regions, function (index, region) {
-                        regionsSelect.append($('<option/>', {
-                            value: region.Value,
-                            text: region.Text
-                        }));
-                    });
-                };
-            });
-            }
-        });
-
-</script>*@
-
-
 @using (Html.BeginForm("EditCustomerPartial", "Customer", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Edit customer information</h4>
         <hr />
+        <h4>Edit customer details</h4>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.CustomerID, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -118,7 +49,4 @@
             </div>
         </div>
     </div>
-}
-
-@section Scripts {
 }
