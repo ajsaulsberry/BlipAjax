@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Web.Mvc;
+using Blip.Data.Countries;
 using Blip.Data.Customers;
 using Blip.Data.Metadata;
 using Blip.Data.Regions;
@@ -160,6 +161,10 @@ namespace Blip.Web.Controllers
                         {
                             CustomerID = model.CustomerID
                         };
+                        var countriesRepo = new CountriesRepository();
+                        postalAddressModel.Countries = countriesRepo.GetCountries();
+                        var regionsRepo = new RegionsRepository();
+                        postalAddressModel.Regions = regionsRepo.GetRegions();
                         return PartialView("CreatePostalAddressPartial", postalAddressModel);
                     default:
                         return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -168,15 +173,15 @@ namespace Blip.Web.Controllers
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
 
-        [ChildActionOnly]
-        public ActionResult CreateEmailAddressPartial(Guid customerid)
-        {
-            var emailAddressModel = new EmailAddressViewModel()
-            {
-                CustomerID = customerid.ToString()
-            };
-            return PartialView("CreateEmailAddressPartial", emailAddressModel);
-        }
+        //[ChildActionOnly]
+        //public ActionResult CreateEmailAddressPartial(Guid customerid)
+        //{
+        //    var emailAddressModel = new EmailAddressViewModel()
+        //    {
+        //        CustomerID = customerid.ToString()
+        //    };
+        //    return PartialView("CreateEmailAddressPartial", emailAddressModel);
+        //}
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -188,22 +193,22 @@ namespace Blip.Web.Controllers
                 bool saved = repo.SaveEmailAddress(model);
                 if (saved)
                 {
-                    // refresh email address list
+                    // nope
                     return PartialView("CreateEmailAddressPartial", model);
                 }
             }
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
 
-        [ChildActionOnly]
-        public ActionResult CreatePostalAddressPartial(string customerid)
-        {
-            var postalAddressModel = new PostalAddressEditViewModel()
-            {
-                CustomerID = customerid
-            };
-            return PartialView("CreatePostalAddressPartial", postalAddressModel);
-        }
+        //[ChildActionOnly]
+        //public ActionResult CreatePostalAddressPartial(string customerid)
+        //{
+        //    var postalAddressModel = new PostalAddressEditViewModel()
+        //    {
+        //        CustomerID = customerid
+        //    };
+        //    return PartialView("CreatePostalAddressPartial", postalAddressModel);
+        //}
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -215,6 +220,7 @@ namespace Blip.Web.Controllers
                 var updatedModel = repo.SavePostalAddress(model);
                 if (updatedModel != null)
                 {
+                    // probably not
                     return PartialView("CreatePostalAddressPartial", updatedModel);
                 }
             }

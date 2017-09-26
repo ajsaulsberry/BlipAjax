@@ -174,7 +174,8 @@ namespace Blip.Data.Customers
                             CustomerID = newGuid,
                             Email = model.Email
                         };
-                        return true;
+                        context.EmailAddresses.Add(emailAddress);
+                        context.SaveChanges();
                     }
                 }
             }
@@ -251,12 +252,13 @@ namespace Blip.Data.Customers
 
         public PostalAddressEditViewModel SavePostalAddress(PostalAddressEditViewModel model)
         {
-            if (model !=null)
+            if (model !=null && Guid.TryParse(model.CustomerID, out Guid customerid))
             {
                 using (var context = new ApplicationDbContext())
                 {
                     var postalAddress = new PostalAddress()
                     {
+                        CustomerID = customerid,
                         StreetAddress1 = model.StreetAddress1.Trim(),
                         StreetAddress2 = model.StreetAddress2.Trim(),
                         City = model.City.Trim(),
@@ -264,8 +266,6 @@ namespace Blip.Data.Customers
                         RegionCode = model.SelectedRegionCode,
                         Iso3 = model.SelectedCountryIso3
                     };
-                    Guid.TryParse(model.CustomerID, out Guid customerid);
-                    postalAddress.CustomerID = customerid;
                     postalAddress.Region = context.Regions.Find(postalAddress.RegionCode);
                     postalAddress.Country = context.Countries.Find(postalAddress.Iso3);
 

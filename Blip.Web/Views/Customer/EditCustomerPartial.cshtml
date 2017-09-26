@@ -3,6 +3,45 @@
 @{ 
     Layout = null;
 }
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+        $(document).ready(function () {
+            var selectedCountry = $("#Country").val();
+            var selectedRegion = $("#Region").val();
+            var regionsSelect = $('#Region');
+            AddRegions(selectedCountry, regionsSelect);
+            if (selectedRegion != null && selectedRegion != '') {
+                regionsSelect.val = selectedRegion;
+            };
+        });
+
+        $("#Country").change(function () {
+            var selectedCountry = $("#Country").val();
+            var regionsSelect = $('#Region');
+            regionsSelect.empty();
+            if (selectedCountry != null && selectedCountry != '') {
+                AddRegions(selectedCountry, regionsSelect, regionsSelect);
+            }
+        });
+
+        function AddRegions(selectedCountry, regionsSelect) {
+            $.getJSON('@Url.Action("GetRegions")', { iso3: selectedCountry }, function (regions) {
+                if (regions != null && !jQuery.isEmptyObject(regions)) {
+                    regionsSelect.append($('<option/>', {
+                        value: null,
+                        text: ""
+                    }));
+                    $.each(regions, function (index, region) {
+                        regionsSelect.append($('<option/>', {
+                            value: region.Value,
+                            text: region.Text
+                        }));
+                    });
+                };
+            });
+        }
+</script>
 
 
 @using (Html.BeginForm("EditCustomerPartial", "Customer", FormMethod.Post))
@@ -53,41 +92,4 @@
 }
 
 @section Scripts {
-    <script type="text/javascript">
-        $(document).ready(function () {
-            var selectedCountry = $("#Country").val();
-            var selectedRegion = $("#Region").val();
-            var regionsSelect = $('#Region');
-            AddRegions(selectedCountry, regionsSelect);
-            if (selectedRegion != null && selectedRegion != '') {
-                regionsSelect.val = selectedRegion;
-            };
-        });
-
-        $('#Country').change(function () {
-            var selectedCountry = $("#Country").val();
-            var regionsSelect = $('#Region');
-            regionsSelect.empty();
-            if (selectedCountry != null && selectedCountry != '') {
-                AddRegions(selectedCountry, regionsSelect, regionsSelect);
-            }
-        });
-
-        function AddRegions(selectedCountry, regionsSelect) {
-            $.getJSON('@Url.Action("GetRegions")', { iso3: selectedCountry }, function (regions) {
-                if (regions != null && !jQuery.isEmptyObject(regions)) {
-                    regionsSelect.append($('<option/>', {
-                        value: null,
-                        text: ""
-                    }));
-                    $.each(regions, function (index, region) {
-                        regionsSelect.append($('<option/>', {
-                            value: region.Value,
-                            text: region.Text
-                        }));
-                    });
-                };
-            });
-        }
-    </script>
 }
