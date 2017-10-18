@@ -129,6 +129,10 @@
     <Compile Include="Migrations\201709232229196_AddAddressTypes.Designer.cs">
       <DependentUpon>201709232229196_AddAddressTypes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710041748261_NamespaceCorrection.cs" />
+    <Compile Include="Migrations\201710041748261_NamespaceCorrection.Designer.cs">
+      <DependentUpon>201710041748261_NamespaceCorrection.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -150,6 +154,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709232229196_AddAddressTypes.resx">
       <DependentUpon>201709232229196_AddAddressTypes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710041748261_NamespaceCorrection.resx">
+      <DependentUpon>201710041748261_NamespaceCorrection.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

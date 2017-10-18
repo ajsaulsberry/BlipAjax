@@ -137,14 +137,14 @@ namespace Blip.Data.Customers
             return null;
         }
 
-        public EmailAddressViewModel GetEmailAddress(Guid customerid)
+        public EmailAddressViewModel GetEmailAddress(Guid customerid, string emailaddress)
         {
             if (customerid != Guid.Empty)
             {
                 using (var context = new ApplicationDbContext())
                 {
                     var emailAddress = context.EmailAddresses.AsNoTracking()
-                        .Where(x => x.CustomerID == customerid)
+                        .Where(x => x.CustomerID == customerid && x.Email == emailaddress.Trim())
                         .SingleOrDefault();
 
                     if (emailAddress != null && !String.IsNullOrWhiteSpace(emailAddress.Email))
@@ -169,13 +169,22 @@ namespace Blip.Data.Customers
                 {
                     using (var context = new ApplicationDbContext())
                     {
-                        var emailAddress = new EmailAddress()
+                        var current = context.EmailAddresses.Find(model.Email.Trim());
+                        if (current == null)
                         {
-                            CustomerID = newGuid,
-                            Email = model.Email
-                        };
-                        context.EmailAddresses.Add(emailAddress);
+                            var emailAddress = new EmailAddress()
+                            {
+                                CustomerID = newGuid,
+                                Email = model.Email.Trim()
+                            };
+                            context.EmailAddresses.Add(emailAddress);
+                        }
+                        else
+                        {
+                            current.CustomerID = newGuid;
+                        }
                         context.SaveChanges();
+                        return true;
                     }
                 }
             }

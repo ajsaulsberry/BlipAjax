@@ -71,7 +71,7 @@ namespace Blip.Web.Controllers
             }
         }
 
-        // GET: Customer/Edit/5
+        // GET: Customer/Edit/68f8202d-21cb-4090-a86c-0722bf588d1b
         public ActionResult Edit(string id)
         {
             if (!String.IsNullOrWhiteSpace(id))
@@ -173,16 +173,6 @@ namespace Blip.Web.Controllers
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
 
-        //[ChildActionOnly]
-        //public ActionResult CreateEmailAddressPartial(Guid customerid)
-        //{
-        //    var emailAddressModel = new EmailAddressViewModel()
-        //    {
-        //        CustomerID = customerid.ToString()
-        //    };
-        //    return PartialView("CreateEmailAddressPartial", emailAddressModel);
-        //}
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateEmailAddressPartial(EmailAddressViewModel model)
@@ -193,22 +183,11 @@ namespace Blip.Web.Controllers
                 bool saved = repo.SaveEmailAddress(model);
                 if (saved)
                 {
-                    // nope
-                    return PartialView("CreateEmailAddressPartial", model);
+                    return RedirectToAction("Edit", new { id = model.CustomerID });
                 }
             }
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
-
-        //[ChildActionOnly]
-        //public ActionResult CreatePostalAddressPartial(string customerid)
-        //{
-        //    var postalAddressModel = new PostalAddressEditViewModel()
-        //    {
-        //        CustomerID = customerid
-        //    };
-        //    return PartialView("CreatePostalAddressPartial", postalAddressModel);
-        //}
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -220,8 +199,7 @@ namespace Blip.Web.Controllers
                 var updatedModel = repo.SavePostalAddress(model);
                 if (updatedModel != null)
                 {
-                    // probably not
-                    return PartialView("CreatePostalAddressPartial", updatedModel);
+                    return RedirectToAction("Edit", new { id = model.CustomerID });
                 }
             }
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

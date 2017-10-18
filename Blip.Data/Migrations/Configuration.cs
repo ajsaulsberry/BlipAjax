@@ -1,4 +1,4 @@
-namespace Blip.Entities.Migrations
+namespace Blip.Data.Migrations
 {
     using System;
     using System.Collections.Generic;

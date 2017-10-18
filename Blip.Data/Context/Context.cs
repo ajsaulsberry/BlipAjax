@@ -1,5 +1,4 @@
 ﻿using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration.Conventions;
 using Blip.Entities.Customers;
 using Blip.Entities.Geographies;
 using Blip.Entities.Metadata;
