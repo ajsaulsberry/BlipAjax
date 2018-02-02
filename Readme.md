@@ -1,6 +1,6 @@
 # BlipAjax
 
-**_BlipAjax_** is an ASP.NET MVC case study solution to accompany two guides in the ** PluralSight** [**HackGuides(())**](https://www.pluralsight.com/guides/microsoft-net) collection for Microsoft .NET technologies.
+**_BlipAjax_** is an ASP.NET MVC case study solution to accompany two guides in the ** PluralSight** [**HackGuides()**](https://www.pluralsight.com/guides/microsoft-net) collection for Microsoft .NET technologies.
 
 ## PluralSight Hack.Guides()
 
@@ -35,7 +35,7 @@
 
 ## Getting Started
 
-1. Download or fork this repository.
+1. Download or clone this repository.
 1. Open the solution in Visual Studio 2017 or higher.
 1. Select the **Blip.Data** project.
 1. Open a Package Manager Console window.
