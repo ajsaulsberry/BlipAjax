@@ -1,12 +1,12 @@
 ﻿@model Blip.Entities.Customers.ViewModels.PostalAddressEditViewModel
 
 <script type="text/javascript">
-    $("#AddressCountry").change(function () {
+    $("#AddressCountry").change(function() {
         var selectedCountry = $("#AddressCountry").val();
         var regionsSelect = $("#AddressRegion");
         regionsSelect.empty();
         if (selectedCountry != null && selectedCountry != '') {
-            AddRegions(selectedCountry, regionsSelect);
+            addRegions(selectedCountry, regionsSelect);
         }
     });
 </script>
