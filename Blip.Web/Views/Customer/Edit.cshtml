@@ -40,7 +40,7 @@
     @Scripts.Render("~/bundles/jqueryval") @*For validate and validate-unobtrusive*@
 
     <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
         var selectedCountry = $("#Country").val();
         var selectedRegion = $("#Region").val();
         var regionsSelect = $('#Region');
@@ -50,7 +50,7 @@
         };
     });
 
-    $("#Country").change(function() {
+    $("#Country").change(function () {
         var selectedCountry = $("#Country").val();
         var regionsSelect = $('#Region');
         regionsSelect.empty();
@@ -60,13 +60,13 @@
     });
 
     function addRegions(selectedCountry, regionsSelect) {
-        $.getJSON('@Url.Action("GetRegions")', { iso3: selectedCountry }, function(regions) {
+        $.getJSON('@Url.Action("GetRegions")', { iso3: selectedCountry }, function (regions) {
             if (regions != null && !jQuery.isEmptyObject(regions)) {
                 regionsSelect.append($('<option/>', {
                     value: null,
                     text: ""
                 }));
-                $.each(regions, function(index, region) {
+                $.each(regions, function (index, region) {
                     regionsSelect.append($('<option/>', {
                         value: region.Value,
                         text: region.Text
