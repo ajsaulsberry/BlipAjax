@@ -243,9 +243,9 @@ namespace Blip.Data.Customers
                         var postalAddressVm = new PostalAddressViewModel()
                         {
                             CustomerID = postalAddress.CustomerID.ToString("D"),
-                            StreetAddress1 = postalAddress.StreetAddress1.Trim(),
-                            StreetAddress2 = postalAddress.StreetAddress2.Trim(),
-                            City = postalAddress.City.Trim()
+                            StreetAddress1 = postalAddress.StreetAddress1?.Trim(),
+                            StreetAddress2 = postalAddress.StreetAddress2?.Trim(),
+                            City = postalAddress.City?.Trim()
                         };
                         var countriesRepo = new CountriesRepository();
                         postalAddressVm.CountryNameEnglish = countriesRepo.GetCountryNameEnglish(postalAddress.Iso3);
