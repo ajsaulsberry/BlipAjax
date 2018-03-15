@@ -268,9 +268,9 @@ namespace Blip.Data.Customers
                     var postalAddress = new PostalAddress()
                     {
                         CustomerID = customerid,
-                        StreetAddress1 = model.StreetAddress1.Trim(),
-                        StreetAddress2 = model.StreetAddress2.Trim(),
-                        City = model.City.Trim(),
+                        StreetAddress1 = model.StreetAddress1?.Trim(),
+                        StreetAddress2 = model.StreetAddress2?.Trim(),
+                        City = model.City?.Trim(),
                         PostalCode = model.PostalCode,
                         RegionCode = model.SelectedRegionCode,
                         Iso3 = model.SelectedCountryIso3
