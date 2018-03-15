@@ -175,7 +175,7 @@ namespace Blip.Data.Migrations
                 {
                     Iso3 = "USA",
                     RegionCode = "MA",
-                    RegionNameEnglish = "Massachsetts"
+                    RegionNameEnglish = "Massachusetts"
                 },
                 new Region
                 {
