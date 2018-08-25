@@ -1,8 +1,8 @@
 # BlipAjax
 
-**_BlipAjax_** is an ASP.NET MVC case study solution to accompany two guides in the **PluralSight** [**HackGuides()**](https://www.pluralsight.com/guides/microsoft-net) collection for Microsoft .NET technologies.
+**_BlipAjax_** is an ASP.NET MVC case study solution to accompany two guides in the [**PluralSight Guides**](https://www.pluralsight.com/guides/microsoft-net) collection for Microsoft .NET technologies.
 
-## PluralSight Hack.Guides()
+## PluralSight Guides
 
 [ASP.NET MVC - Using Ajax helpers with Razor partial views](https://www.pluralsight.com/guides/microsoft-net/asp-net-mvc-using-ajax-helpers-with-razor-partial-views) - The case study presented in this guide uses one AjaxHelper class method, `BeginForm` to provide the asynchronous functionality needed to update a section of a web page without refreshing the entire page.
 
