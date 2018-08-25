@@ -1,12 +1,12 @@
 # BlipAjax
 
-**_BlipAjax_** is an ASP.NET MVC case study solution to accompany two guides in the [**PluralSight Guides**](https://www.pluralsight.com/guides/microsoft-net) collection for Microsoft .NET technologies.
+**_BlipAjax_** is an ASP.NET MVC case study solution to accompany two guides in the [**PluralSight Guides**](https://www.pluralsight.com/guides) collection for Microsoft .NET technologies.
 
 ## PluralSight Guides
 
-[ASP.NET MVC - Using Ajax helpers with Razor partial views](https://www.pluralsight.com/guides/microsoft-net/asp-net-mvc-using-ajax-helpers-with-razor-partial-views) - The case study presented in this guide uses one AjaxHelper class method, `BeginForm` to provide the asynchronous functionality needed to update a section of a web page without refreshing the entire page.
+[ASP.NET MVC - Using Ajax helpers with Razor partial views](https://www.pluralsight.com/guides/asp-net-mvc-using-ajax-helpers-with-razor-partial-views) - The case study presented in this guide uses one AjaxHelper class method, `BeginForm` to provide the asynchronous functionality needed to update a section of a web page without refreshing the entire page.
 
-[ASP.NET MVC - Using JavaScript with Ajax and Razor partial views](https://www.pluralsight.com/guides/microsoft-net/asp-net-mvc-using-javascript-with-ajax-and-razor-partial-views) - Ajax helper methods and extensions in the **System.Web.Mvc** and **System.Web.Mvc.Ajax** namespaces can be combined with JavaScript and MVC partial views to create flexible interactive web pages with minimal code.
+[ASP.NET MVC - Using JavaScript with Ajax and Razor partial views](https://www.pluralsight.com/guides/asp-net-mvc-using-javascript-with-ajax-and-razor-partial-views) - Ajax helper methods and extensions in the **System.Web.Mvc** and **System.Web.Mvc.Ajax** namespaces can be combined with JavaScript and MVC partial views to create flexible interactive web pages with minimal code.
 
 *Notice: PluralSight and the author(s) disclaim any liability for errors or omissions in this code. See the [Disclaimer of Warranties and Limitation of Liability](#Disclaimer-of-Warranties-and-Limitation-of-Liability) for complete information.*
 
