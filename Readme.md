@@ -22,14 +22,14 @@
 
 | Dependency | Version*
 | :--- | ---:
-| .NET Framework | 4.6.2
-| ASP.NET MVC | 5.2.3
-| Bootstrap | 3.7
-| Entity Framework | 6.1.3
-| jQuery | 3.2.1
-| jQuery Validation | 1.16.0
-| Microsoft jQuery Unobtrusive Ajax | 3.2.3
-| Microsoft jQuery Unobtrusive Validation | 3.2.3
+| .NET Framework | 4.7.2
+| ASP.NET MVC | 5.2.7
+| Bootstrap | 3.4.1
+| Entity Framework | 6.4.0
+| jQuery | 3.4.1
+| jQuery Validation | 1.19.1
+| Microsoft jQuery Unobtrusive Ajax | 3.2.6
+| Microsoft jQuery Unobtrusive Validation | 3.2.11
 
 &ast; As of the latest commit.
 
